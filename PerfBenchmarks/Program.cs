@@ -39,6 +39,7 @@ namespace PerfBenchmarks
                     .Select(pair => pair.Key)
                     .ToList()
                     .ForEach(Console.WriteLine);
+
                 Console.WriteLine("All");
                 return;
             }
