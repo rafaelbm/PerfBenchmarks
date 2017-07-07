@@ -3,10 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Extensions;
 
 namespace PerfBenchmarks
 {
@@ -14,7 +11,7 @@ namespace PerfBenchmarks
     public class DataTableVsDictionaryVsConcurrentDictionaryTests
     {
         const int Items = 10000;
-      //const int Lookup = 7777;
+        //const int Lookup = 7777;
 
         [Params(5, 10, 100)]
         public int ItemsParams;
