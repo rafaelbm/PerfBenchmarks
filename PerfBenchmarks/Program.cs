@@ -11,7 +11,7 @@ namespace PerfBenchmarks
     {
         public BenchConfig()
         {
-            Add(MemoryDiagnoser.Default);
+            AddDiagnoser(MemoryDiagnoser.Default);
         }
     }
 
