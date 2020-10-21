@@ -7,7 +7,15 @@ namespace PerfBenchmarks
     [Config(typeof(BenchConfig))]
     public class FindTests
     {
-        private readonly List<string> _items = Enumerable.Range(0, 50000).Select(i => "Index" + i).ToList();
+        private List<string> _items;
+
+        [GlobalSetup]
+        public void GlobalSetup()
+        {
+            _items = Enumerable.Range(0, 50000)
+                               .Select(i => "Index" + i)
+                               .ToList();
+        }
 
         [Benchmark]
         public void Find()
