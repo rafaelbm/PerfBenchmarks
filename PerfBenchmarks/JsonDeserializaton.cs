@@ -43,6 +43,24 @@ namespace PerfBenchmarks
             _arraySegment = new ArraySegment<byte>(Encoding.UTF8.GetBytes(customerAsJson));
         }
 
+        [Benchmark(Baseline = true)]
+        public Customer[] NewtonJsonDeserializeFromJsonString()
+        {
+            var array = _arraySegment.ToArray();
+            var json = Encoding.UTF8.GetString(array);
+
+            return JsonConvert.DeserializeObject<Customer[]>(json);
+        }
+
+        [Benchmark]
+        public Customer[] JsonSerializerDeserializeFromJsonString()
+        {
+            var array = _arraySegment.ToArray();
+            var json = Encoding.UTF8.GetString(array);
+
+            return System.Text.Json.JsonSerializer.Deserialize<Customer[]>(json);
+        }
+
         [Benchmark]
         public Customer[] NewtonJsonDeserializeFromJsonTextReader()
         {
@@ -66,24 +84,6 @@ namespace PerfBenchmarks
         public Customer[] JsonSerializerDeserializeFromArraySegmentFromArray()
         {
             return System.Text.Json.JsonSerializer.Deserialize<Customer[]>(_arraySegment.Array);
-        }
-
-        [Benchmark(Baseline = true)]
-        public Customer[] NewtonJsonDeserializeFromJsonString()
-        {
-            var array = _arraySegment.ToArray();
-            var json = Encoding.UTF8.GetString(array);
-
-            return JsonConvert.DeserializeObject<Customer[]>(json);
-        }
-
-        [Benchmark]
-        public Customer[] JsonSerializerDeserializeFromJsonString()
-        {
-            var array = _arraySegment.ToArray();
-            var json = Encoding.UTF8.GetString(array);
-
-            return System.Text.Json.JsonSerializer.Deserialize<Customer[]>(json);
         }
     }
 
