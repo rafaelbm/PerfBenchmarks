@@ -7,11 +7,13 @@ namespace PerfBenchmarks
     public class EnumBenchmarks
     {
         private string _myEnumValueAsString;
+        private int _myEnumValueAsInt;
 
         [GlobalSetup]
         public void Setup()
         {
             _myEnumValueAsString = "Value1";
+            _myEnumValueAsInt = 1;
         }
 
 
@@ -31,6 +33,24 @@ namespace PerfBenchmarks
         public bool EqualityCheckReturningTrueTryParse()
         {
             return Enum.TryParse(_myEnumValueAsString, out MyEnum _);
+        }
+
+        [Benchmark]
+        public bool EnumValueAsIntEqualityCheckReturningTrueToObject()
+        {
+            return (MyEnum)Enum.ToObject(typeof(MyEnum), _myEnumValueAsInt) == MyEnum.Value1;
+        }
+
+        [Benchmark]
+        public bool EnumValueAsIntEqualityCheckCastingEnumToString()
+        {
+            return _myEnumValueAsInt == MyEnum.Value1.GetHashCode();
+        }
+
+        [Benchmark]
+        public bool EnumValueAsIntEqualityCheckIsDefined()
+        {
+            return Enum.IsDefined(typeof(MyEnum), _myEnumValueAsInt);
         }
     }
 
